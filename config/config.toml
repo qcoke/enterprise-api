@@ -3,11 +3,11 @@
 	Address     = ":8199"
 	ServerRoot  = "public"
 	ServerAgent = "gf-app"
-	LogPath     = "/tmp/log/gf-app/server"
+	LogPath     = "D:\\Goworks\\src\\enterprise-api\\log\\gf-app\\server"
 
 # Logger.
 [logger]
-    Path        = "/tmp/log/gf-app"
+    Path        = "D:\\Goworks\\src\\enterprise-api\\log\\gf-app"
     Level       = "all"
     Stdout      = true
 
@@ -15,14 +15,20 @@
 [viewer]
     Path        = "template"
     DefaultFile = "index.html"
-    Delimiters  =  ["{{", "}}"]
+    # Delimiters  =  ["{{", "}}"]
 
 # Database.
 [database]
-    link  = "mysql:root:12345678@tcp(127.0.0.1:3306)/test"
+    link  = "mysql:root:root@tcp(127.0.0.1:3306)/goframedemo"
     debug = true
     # Database logger.
     [database.logger]
-        Path   = "/tmp/log/gf-app/sql"
+        Path   = "D:\\Goworks\\src\\enterprise-api\\log\\gf-app\\sql"
         Level  = "all"
         Stdout = true
+# GF-CLI 工具配置
+[gfcli]
+    # 自定义 DAO 生成配置（默认读取 database 配置）
+    [[gfcli.gen.dao]]
+        link = "mysql:root:root@tcp(127.0.0.1:3306)/goframedemo"
+        tables = "user,link"
