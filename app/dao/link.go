@@ -8,7 +8,7 @@ import (
 	"enterprise-api/app/dao/internal"
 )
 
-// linkDao is the data access object for table link.
+// linkDao is the manager for logic model data accessing and custom defined data operations functions management.
 // You can define custom methods on it to extend its functionality as you wish.
 type linkDao struct {
 	*internal.LinkDao
@@ -16,9 +16,13 @@ type linkDao struct {
 
 var (
 	// Link is globally public accessible object for table link operations.
+	Link linkDao
+)
+
+func init() {
 	Link = linkDao{
 		internal.NewLinkDao(),
 	}
-)
+}
 
 // Fill with you ideas below.

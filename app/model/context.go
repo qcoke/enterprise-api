@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	ContextKey = "ContextKey"
+	ContextKey = "requestContent"
 )
 
 type Context struct {

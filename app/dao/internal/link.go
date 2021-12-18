@@ -5,61 +5,30 @@
 package internal
 
 import (
-	"context"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/database/gdb"
+	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/frame/gmvc"
 )
 
-// LinkDao is the data access object for table link.
+// LinkDao is the manager for logic model data accessing and custom defined data operations functions management.
 type LinkDao struct {
-	Table   string      // Table is the underlying table name of the DAO.
-	Group   string      // Group is the database configuration group name of current DAO.
-	Columns LinkColumns // Columns contains all the column names of Table for convenient usage.
+	gmvc.M             // M is the core and embedded struct that inherits all chaining operations from gdb.Model.
+	C      linkColumns // C is the short type for Columns, which contains all the column names of Table for convenient usage.
+	DB     gdb.DB      // DB is the raw underlying database management object.
+	Table  string      // Table is the underlying table name of the DAO.
 }
 
 // LinkColumns defines and stores column names for table link.
-type LinkColumns struct {
-	Id        string // ID
-	Title     string // 链接标题
-	Url       string // 链接地址
-	Body      string // 链接描述
-	CreatedAt string // 创建时间
-}
-
-//  linkColumns holds the columns for table link.
-var linkColumns = LinkColumns{
-	Id:        "id",
-	Title:     "title",
-	Url:       "url",
-	Body:      "body",
-	CreatedAt: "created_at",
+type linkColumns struct {
 }
 
 // NewLinkDao creates and returns a new DAO object for table data access.
 func NewLinkDao() *LinkDao {
+	columns := linkColumns{}
 	return &LinkDao{
-		Group:   "default",
-		Table:   "link",
-		Columns: linkColumns,
+		C:     columns,
+		M:     g.DB("default").Model("link").Safe(),
+		DB:    g.DB("default"),
+		Table: "link",
 	}
-}
-
-// DB retrieves and returns the underlying raw database management object of current DAO.
-func (dao *LinkDao) DB() gdb.DB {
-	return g.DB(dao.Group)
-}
-
-// Ctx creates and returns the Model for current DAO, It automatically sets the context for current operation.
-func (dao *LinkDao) Ctx(ctx context.Context) *gdb.Model {
-	return dao.DB().Model(dao.Table).Safe().Ctx(ctx)
-}
-
-// Transaction wraps the transaction logic using function f.
-// It rollbacks the transaction and returns the error from function f if it returns non-nil error.
-// It commits the transaction and returns nil if function f returns nil.
-//
-// Note that, you should not Commit or Rollback the transaction in function f
-// as it is automatically handled by this function.
-func (dao *LinkDao) Transaction(ctx context.Context, f func(ctx context.Context, tx *gdb.TX) error) (err error) {
-	return dao.Ctx(ctx).Transaction(ctx, f)
 }

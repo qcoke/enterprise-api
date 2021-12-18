@@ -5,63 +5,41 @@
 package internal
 
 import (
-	"context"
-	"github.com/gogf/gf/v2/database/gdb"
-	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/database/gdb"
+	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/frame/gmvc"
 )
 
-// UserDao is the data access object for table user.
+// UserDao is the manager for logic model data accessing and custom defined data operations functions management.
 type UserDao struct {
-	Table   string      // Table is the underlying table name of the DAO.
-	Group   string      // Group is the database configuration group name of current DAO.
-	Columns UserColumns // Columns contains all the column names of Table for convenient usage.
+	gmvc.M             // M is the core and embedded struct that inherits all chaining operations from gdb.Model.
+	C      userColumns // C is the short type for Columns, which contains all the column names of Table for convenient usage.
+	DB     gdb.DB      // DB is the raw underlying database management object.
+	Table  string      // Table is the underlying table name of the DAO.
 }
 
 // UserColumns defines and stores column names for table user.
-type UserColumns struct {
-	Id       string // 用户ID
-	Passport string // 用户账号
-	Password string // 用户密码
-	Nickname string // 用户昵称
-	CreateAt string // 创建时间
-	UpdateAt string // 更新时间
-}
-
-//  userColumns holds the columns for table user.
-var userColumns = UserColumns{
-	Id:       "id",
-	Passport: "passport",
-	Password: "password",
-	Nickname: "nickname",
-	CreateAt: "create_at",
-	UpdateAt: "update_at",
+type userColumns struct {
+	Id        string //
+	UserName  string //
+	PassWord  string //
+	Email     string //
+	CreatedAt string //
 }
 
 // NewUserDao creates and returns a new DAO object for table data access.
 func NewUserDao() *UserDao {
-	return &UserDao{
-		Group:   "default",
-		Table:   "user",
-		Columns: userColumns,
+	columns := userColumns{
+		Id:        "id",
+		UserName:  "user_name",
+		PassWord:  "pass_word",
+		Email:     "email",
+		CreatedAt: "created_at",
 	}
-}
-
-// DB retrieves and returns the underlying raw database management object of current DAO.
-func (dao *UserDao) DB() gdb.DB {
-	return g.DB(dao.Group)
-}
-
-// Ctx creates and returns the Model for current DAO, It automatically sets the context for current operation.
-func (dao *UserDao) Ctx(ctx context.Context) *gdb.Model {
-	return dao.DB().Model(dao.Table).Safe().Ctx(ctx)
-}
-
-// Transaction wraps the transaction logic using function f.
-// It rollbacks the transaction and returns the error from function f if it returns non-nil error.
-// It commits the transaction and returns nil if function f returns nil.
-//
-// Note that, you should not Commit or Rollback the transaction in function f
-// as it is automatically handled by this function.
-func (dao *UserDao) Transaction(ctx context.Context, f func(ctx context.Context, tx *gdb.TX) error) (err error) {
-	return dao.Ctx(ctx).Transaction(ctx, f)
+	return &UserDao{
+		C:     columns,
+		M:     g.DB("default").Model("user").Safe(),
+		DB:    g.DB("default"),
+		Table: "user",
+	}
 }

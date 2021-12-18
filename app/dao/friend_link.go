@@ -8,20 +8,20 @@ import (
 	"enterprise-api/app/dao/internal"
 )
 
-// userDao is the manager for logic model data accessing and custom defined data operations functions management.
+// friendLinkDao is the manager for logic model data accessing and custom defined data operations functions management.
 // You can define custom methods on it to extend its functionality as you wish.
-type userDao struct {
-	*internal.UserDao
+type friendLinkDao struct {
+	*internal.FriendLinkDao
 }
 
 var (
-	// User is globally public accessible object for table user operations.
-	User userDao
+	// FriendLink is globally public accessible object for table friend_link operations.
+	FriendLink friendLinkDao
 )
 
 func init() {
-	User = userDao{
-		internal.NewUserDao(),
+	FriendLink = friendLinkDao{
+		internal.NewFriendLinkDao(),
 	}
 }
 
