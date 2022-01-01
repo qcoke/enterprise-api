@@ -28,6 +28,18 @@ func (s *userService) Detail(userId string) gdb.Record {
 	return nil
 }
 
-func (s *userService) AddOrUpdate(u *model.User) bool {
-	return true
+func (s *userService) AddOrUpdate(u *model.User) error {
+	uId := string(u.Id)
+	if uId == "" {
+		// Add
+		if _, err := dao.User.Save(u); err != nil {
+			return err
+		}
+	} else {
+		// Update
+		if _, err := dao.User.Update(u); err != nil {
+			return err
+		}
+	}
+	return nil
 }
