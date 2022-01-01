@@ -20,11 +20,11 @@ type FriendLinkDao struct {
 
 // FriendLinkColumns defines and stores column names for table friend_link.
 type friendLinkColumns struct {
-	Id          string //
-	Title       string //
-	Description string //
-	Url         string //
-	Type        string //
+	Id          string // Id
+	Title       string // 标题
+	Description string // 描述
+	Url         string // 链接地址
+	Type        string // 跳转类型
 }
 
 // NewFriendLinkDao creates and returns a new DAO object for table data access.

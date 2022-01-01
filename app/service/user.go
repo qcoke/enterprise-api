@@ -29,11 +29,5 @@ func (s *userService) Detail(userId string) gdb.Record {
 }
 
 func (s *userService) AddOrUpdate(u *model.User) bool {
-	var (
-		err error
-	)
-	if u.Id != nil {
-
-	}
 	return true
 }

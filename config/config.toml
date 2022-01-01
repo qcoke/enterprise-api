@@ -3,11 +3,11 @@
 	Address     = ":8199"
 	ServerRoot  = "public"
 	ServerAgent = "gf-app"
-	LogPath     = "D:\\Goworks\\src\\enterprise-api\\log\\gf-app\\server"
+	LogPath     = "D:\\go_workspace\\enterprise-api\\logs\\server"
 
 # Logger.
 [logger]
-    Path        = "D:\\Goworks\\src\\enterprise-api\\log\\gf-app"
+    Path        = "D:\\go_workspace\\enterprise-api\\logs"
     Level       = "all"
     Stdout      = true
 
@@ -23,7 +23,7 @@
     debug = true
     # Database logger.
     [database.logger]
-        Path   = "D:\\Goworks\\src\\enterprise-api\\log\\gf-app\\sql"
+        Path   = "D:\\go_workspace\\enterprise-api\\logs\\database"
         Level  = "all"
         Stdout = true
 # GF-CLI 工具配置
@@ -31,4 +31,4 @@
     # 自定义 DAO 生成配置（默认读取 database 配置）
     [[gfcli.gen.dao]]
         link = "mysql:root:root@tcp(127.0.0.1:3306)/eweb"
-        tables = "user,friend_link"
+        tables = "user,friend_link,article"
