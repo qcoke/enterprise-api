@@ -1,15 +1,18 @@
 package main
 
 import (
-	_ "enterprise-api/boot"
-	_ "enterprise-api/router"
-	"github.com/gogf/swagger"
-	"github.com/gogf/gf/frame/g"
+	_ "github.com/gogf/template-single/internal/packed"
+
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/template-single/internal/cmd"
 )
 
 func main() {
-	s := g.Server()
-	s.Plugin(&swagger.Swagger{})
-	s.SetPort(8080)
-	s.Run()
+	var (
+		ctx = gctx.New()
+	)
+	if err := cmd.Main.Run(ctx); err != nil {
+		g.Log().Fatal(ctx, err)
+	}
 }

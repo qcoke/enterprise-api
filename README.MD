@@ -1,3 +1,1 @@
-# GoFrame Project
-
-https://goframe.org
+# GoFrame Template For SingleRepo
