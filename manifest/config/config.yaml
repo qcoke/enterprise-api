@@ -1,11 +1,22 @@
 server:
-  address:     ":8000"
+  address: ":8000"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
 
 logger:
-  level : "all"
+  level: "all"
   stdout: true
+  path: "D:\\go_workspace\\enterprise-api\\logs"
 
+database:
+  link: "mysql:root:root@tcp(127.0.0.1:3306)/eweb"
+  debug: true
+  database.logger:
+    Path: "D:\\go_workspace\\enterprise-api\\logs\\database"
+    Level: "all"
+    Stdout: true
 
-
+gfcli:
+  gfcli.gen.dao:
+    link: "mysql:root:root@tcp(127.0.0.1:3306)/eweb"
+    tables: "user,friend_link,article"
