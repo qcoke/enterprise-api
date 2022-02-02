@@ -5,7 +5,7 @@ import (
 )
 
 type UserListReq struct {
-	g.Meta `path:"/list" tags:"User" method:"get" summary:"获取用户列表"`
+	g.Meta `path:"/list" tags:"User" method:"get" summary:"获取用户列表。"`
 }
 
 type UserAddOrUpdateReq struct {
