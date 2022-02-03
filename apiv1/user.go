@@ -9,7 +9,7 @@ type UserListReq struct {
 }
 
 type UserAddOrUpdateReq struct {
-	g.Meta `path:"/add_or_update" tags:"User" method:"get" summary:"增加或更新用户"`
+	g.Meta `path:"/add_or_update" tags:"User" method:"get" summary:"增加或更新用户。"`
 }
 
 type UserDeleteReq struct {
